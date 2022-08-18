@@ -12,8 +12,8 @@
 
         public string FilePath()
         {
-            var xmlFilePath = _configuration.GetSection("XmlFileDataPath").GetChildren().FirstOrDefault(config => config.Key == "SourceFilePath").Value;
-            return xmlFilePath;
+            var sourceFilePath = _configuration.GetSection("XmlFileDataPath").GetChildren().FirstOrDefault(config => config.Key == "SourceFilePath").Value;
+            return sourceFilePath;
         }
     }
 }
