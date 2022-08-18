@@ -14,8 +14,7 @@
       "applicationUrl": "https://localhost:7007;http://localhost:5007",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
-        "ASPNETCORE_HOSTINGSTARTUPASSEMBLIES": "Microsoft.AspNetCore.SpaProxy",
-        "XmlFileDataPath": "C:\\\\Users\\\\KarthikeyanAnnamalai\\\\Downloads\\\\RabobankExercises - 2022\\\\RabobankExercises - 2022\\FundsOfMandatesData.xml"
+        "ASPNETCORE_HOSTINGSTARTUPASSEMBLIES": "Microsoft.AspNetCore.SpaProxy"
       }
     },
     "IIS Express": {

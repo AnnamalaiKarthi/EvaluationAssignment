@@ -11,16 +11,20 @@ namespace Rabobank.Training.WebApp.Controllers
 
         private readonly ILogger<PortfolioController> _logger;
 
-        public PortfolioController(ILogger<PortfolioController> logger, IFundOfMandatesService fundOfMandatesService)
+        private readonly IConfiguration _configuration;
+
+        public PortfolioController(ILogger<PortfolioController> logger, IFundOfMandatesService fundOfMandatesService, IConfiguration configuaration)
         {
             _logger = logger;
             _fundOfMandatesService = fundOfMandatesService;
+            _configuration = configuaration;
         }
 
         [HttpGet]
         public async Task<IActionResult> Get()
         {
-            var filePath = Environment.GetEnvironmentVariable("XmlFileDataPath");
+            var filePath = _configuration.GetSection("XmlFileDataPath").GetChildren().FirstOrDefault(config => config.Key == "SourceFilePath").Value;
+
             if (filePath != null)
             {
                 var data = await _fundOfMandatesService.GetPortfolioAsync(filePath);

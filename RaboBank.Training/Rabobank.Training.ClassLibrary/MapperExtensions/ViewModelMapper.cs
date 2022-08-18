@@ -5,7 +5,7 @@ namespace Rabobank.Training.ClassLibrary.MapperExtensions
 {
     public static class ViewModelMapper
     {
-        public static MandateVM ToMandateVM(this FundsOfMandatesData fundsOfMandatesData)
+        public static MandateVM? ToMandateVM(this FundsOfMandatesData fundsOfMandatesData)
         {
             if (fundsOfMandatesData != null)
             {
