@@ -1,11 +1,12 @@
 using Rabobank.Training.ClassLibrary.Services;
+using Rabobank.Training.WebApp.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<IFundOfMandatesService, FundOfMandatesService>();
-
+builder.Services.AddScoped<IGetFilePath, GetFilePath>();
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAnyCorsPolicy", policy => policy.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
