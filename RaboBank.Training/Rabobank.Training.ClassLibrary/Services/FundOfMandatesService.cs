@@ -7,15 +7,18 @@
 
     public class FundOfMandatesService : IFundOfMandatesService
     {
-        public async Task<FundsOfMandatesData> GetFundsOfMandatesDataAsync(string fileName)
+        public async Task<FundsOfMandatesData?> GetFundsOfMandatesDataAsync(string fileName)
         {
             try
             {
                 XmlSerializer deserializer = new XmlSerializer(typeof(FundsOfMandatesData), "http://amt.rnss.rabobank.nl/");
                 using var reader = new StreamReader(fileName);
-                var data = await Task.FromResult((FundsOfMandatesData)deserializer.Deserialize(reader));
-                AddLiquidity(data);
-                data.FundsOfMandates.AddRange(new List<FundsOfMandatesDataFundOfMandates>
+                var data = await Task.FromResult((FundsOfMandatesData?)deserializer.Deserialize(reader));
+                if (data != null && data.FundsOfMandates != null)
+                {
+                    AddLiquidity(data);
+
+                    data.FundsOfMandates.AddRange(new List<FundsOfMandatesDataFundOfMandates>
                    {
                         new FundsOfMandatesDataFundOfMandates
                         {
@@ -33,8 +36,9 @@
                             InstrumentName="Morgan Stanley Invest US Gr Fnd",
                          },
                 });
-
-                return data;
+                    return data;
+                }
+                else { return null; }
             }
             catch (Exception)
             {
@@ -42,11 +46,18 @@
             }
         }
 
-        public async Task<PortfolioVM> GetPortfolioAsync(string fileName)
+        public async Task<PortfolioVM?> GetPortfolioAsync(string fileName)
         {
             var data = await GetFundsOfMandatesDataAsync(fileName);
-            var result = data.ToPortfolioVM();
-            return result;
+            if (data != null)
+            {
+                var result = data.ToPortfolioVM();
+                return result;
+            }
+            else
+            {
+                return null;
+            }
         }
 
         public void Display(List<PositionVM> portfolioList)
@@ -59,13 +70,19 @@
 
         private void AddLiquidity(FundsOfMandatesData data)
         {
-            foreach (var item in data.FundsOfMandates)
+            if (data.FundsOfMandates != null)
             {
-                item.Mandates.Add(new FundsOfMandatesDataFundOfMandatesMandate
+                foreach (var item in data.FundsOfMandates)
                 {
-                    MandateName = "Liquidity",
-                    Allocation = item.LiquidityAllocation,
-                });
+                    if (item.Mandates != null)
+                    {
+                        item.Mandates.Add(new FundsOfMandatesDataFundOfMandatesMandate
+                        {
+                            MandateName = "Liquidity",
+                            Allocation = item.LiquidityAllocation,
+                        });
+                    }
+                }
             }
         }
     }

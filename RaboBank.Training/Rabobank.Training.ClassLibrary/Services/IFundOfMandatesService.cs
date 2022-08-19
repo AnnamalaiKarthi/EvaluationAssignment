@@ -6,9 +6,9 @@
 
     public interface IFundOfMandatesService
     {
-        Task<FundsOfMandatesData> GetFundsOfMandatesDataAsync(string fileName);
+        Task<FundsOfMandatesData?> GetFundsOfMandatesDataAsync(string fileName);
 
-        Task<PortfolioVM> GetPortfolioAsync(string fileName);
+        Task<PortfolioVM?> GetPortfolioAsync(string fileName);
 
         void Display(List<PositionVM> portfolioList);
     }

@@ -17,29 +17,33 @@ namespace Rabobank.Training.ClassLibrary.MapperExtensions
             return null;
         }
 
-        public static PortfolioVM ToPortfolioVM(this FundsOfMandatesData fundsOfMandatesData)
+        public static PortfolioVM? ToPortfolioVM(this FundsOfMandatesData fundsOfMandatesData)
         {
-            if (fundsOfMandatesData != null)
+            if (fundsOfMandatesData.FundsOfMandates != null)
             {
                 var portfolioVM = new PortfolioVM();
-                foreach (var position in fundsOfMandatesData.FundsOfMandates)
+                foreach (FundsOfMandatesDataFundOfMandates? position in fundsOfMandatesData.FundsOfMandates)
                 {
-                    portfolioVM.Positions.Add(new PositionVM
+                    if (portfolioVM.Positions != null && position.InstrumentName != null)
                     {
-                        Code = position.InstrumentCode,
-                        Name = position.InstrumentName,
-                        Value = GetValue(position.InstrumentName),
-                        Mandates = position.Mandates?.Select(x => new MandateVM
+                        portfolioVM.Positions.Add(new PositionVM
                         {
-                            Name = x.MandateName,
-                            Allocation = x.Allocation,
-                            Value = Math.Round(GetValue(position.InstrumentName) * x.Allocation / 100, 1),
-                        }).ToList()
-                    });
+                            Code = position.InstrumentCode,
+                            Name = position.InstrumentName,
+                            Value = GetValue(position.InstrumentName),
+
+                            Mandates = position.Mandates?.Select(x => new MandateVM
+                            {
+                                Name = x.MandateName,
+                                Allocation = x.Allocation,
+                                Value = Math.Round(GetValue(position.InstrumentName) * x.Allocation / 100, 1),
+                            }).ToList()
+                        });
+                    }
                 }
                 return portfolioVM;
             }
-            return null;
+            else { return null; }
         }
 
         private static int GetValue(string InstrumentName)
