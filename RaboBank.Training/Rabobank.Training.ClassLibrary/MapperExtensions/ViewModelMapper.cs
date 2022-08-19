@@ -33,7 +33,7 @@ namespace Rabobank.Training.ClassLibrary.MapperExtensions
                         {
                             Name = x.MandateName,
                             Allocation = x.Allocation,
-                            Value = Math.Round((GetValue(position.InstrumentName) * x.Allocation) / 100, 1),
+                            Value = Math.Round(GetValue(position.InstrumentName) * x.Allocation / 100, 1),
                         }).ToList()
                     });
                 }
@@ -49,23 +49,18 @@ namespace Rabobank.Training.ClassLibrary.MapperExtensions
             {
                 case "heineken":
                     return 12345;
-                    break;
 
                 case "optimix mix fund":
                     return 23456;
-                    break;
 
                 case "dp global strategy l high":
                     return 34567;
-                    break;
 
                 case "rabobank core aandelen fonds t2":
                     return 45678;
-                    break;
 
                 case "morgan stanley invest us gr fnd":
                     return 56789;
-                    break;
 
                 default:
                     return 0;

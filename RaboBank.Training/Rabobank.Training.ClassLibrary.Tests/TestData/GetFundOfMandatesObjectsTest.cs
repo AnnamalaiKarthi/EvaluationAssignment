@@ -1,5 +1,6 @@
 ﻿namespace Rabobank.Training.ClassLibrary.Tests.TestData
 {
+    using FluentAssertions;
     using Rabobank.Training.ClassLibrary.Services;
     using Rabobank.Training.ClassLibrary.ViewModels;
 
@@ -25,7 +26,9 @@
         public async Task GetPortfolioTest()
         {
             var data = await _fundOfMandatesService.GetPortfolioAsync(xmlFileDataPath);
+            int mandateCount = 6;
             Assert.IsNotNull(data);
+            _ = data.Positions.Count.Should().Be(mandateCount);
         }
 
         [TestMethod]

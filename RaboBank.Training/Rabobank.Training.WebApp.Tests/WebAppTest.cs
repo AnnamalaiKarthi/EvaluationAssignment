@@ -9,6 +9,9 @@ using Xunit;
 namespace Rabobank.Training.WebApp.Tests
 
 {
+    /// <summary>
+    /// Class <c>WebAppTest</c> Created to Test WebApp functions.
+    /// </summary>
     public class WebAppTest
     {
         private readonly Mock<IFundOfMandatesService> _fundOfMandatesServiceMock;
@@ -25,6 +28,9 @@ namespace Rabobank.Training.WebApp.Tests
             _getFilePathMock = new Mock<IGetFilePath>();
         }
 
+        /// <summary>
+        /// Test Method <M>Get</> Created to Test WebApp portfoliocontroller Get function.
+        /// </summary>
         [Fact]
         public async Task Get()
         {
