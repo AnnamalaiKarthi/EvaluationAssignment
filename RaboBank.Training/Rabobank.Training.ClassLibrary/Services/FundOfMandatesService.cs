@@ -7,12 +7,12 @@
 
     public class FundOfMandatesService : IFundOfMandatesService
     {
-        public async Task<FundsOfMandatesData> GetFundsOfMandatesDataAsync(string filename)
+        public async Task<FundsOfMandatesData> GetFundsOfMandatesDataAsync(string fileName)
         {
             try
             {
                 XmlSerializer deserializer = new XmlSerializer(typeof(FundsOfMandatesData), "http://amt.rnss.rabobank.nl/");
-                using var reader = new StreamReader(filename);
+                using var reader = new StreamReader(fileName);
                 var data = await Task.FromResult((FundsOfMandatesData)deserializer.Deserialize(reader));
                 AddLiquidity(data);
                 data.FundsOfMandates.AddRange(new List<FundsOfMandatesDataFundOfMandates>

@@ -38,7 +38,7 @@ namespace Rabobank.Training.WebApp.Tests
             PortfolioController portfolioController = new PortfolioController(_logger.Object, _fundOfMandatesServiceMock.Object, _configurationMock.Object, _getFilePathMock.Object);
             Environment.SetEnvironmentVariable("XmlFileDataPath", xmlFileDataPath);
             // Act
-            var result = portfolioController.Get();
+            var result = await portfolioController.Get();
             // Assert
             Assert.NotNull(result);
         }

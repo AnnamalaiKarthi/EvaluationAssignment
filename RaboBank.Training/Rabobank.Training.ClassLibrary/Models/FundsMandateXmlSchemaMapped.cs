@@ -12,7 +12,7 @@
 
         /// <remarks/>
         [System.Xml.Serialization.XmlArrayItemAttribute("FundOfMandates", IsNullable = false)]
-        public List<FundsOfMandatesDataFundOfMandates> FundsOfMandates
+        public List<FundsOfMandatesDataFundOfMandates>? FundsOfMandates
         {
             get
             {
@@ -40,7 +40,7 @@
         private List<FundsOfMandatesDataFundOfMandatesMandate>? mandatesField;
 
         /// <remarks/>
-        public string InstrumentCode
+        public string? InstrumentCode
         {
             get
             {
@@ -53,7 +53,7 @@
         }
 
         /// <remarks/>
-        public string InstrumentName
+        public string? InstrumentName
         {
             get
             {
@@ -80,7 +80,7 @@
 
         /// <remarks/>
         [System.Xml.Serialization.XmlArrayItemAttribute("Mandate", IsNullable = false)]
-        public List<FundsOfMandatesDataFundOfMandatesMandate> Mandates
+        public List<FundsOfMandatesDataFundOfMandatesMandate>? Mandates
         {
             get
             {
@@ -106,7 +106,7 @@
         private decimal allocationField;
 
         /// <remarks/>
-        public string MandateId
+        public string? MandateId
         {
             get
             {
@@ -119,7 +119,7 @@
         }
 
         /// <remarks/>
-        public string MandateName
+        public string? MandateName
         {
             get
             {
