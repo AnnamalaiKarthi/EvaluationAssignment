@@ -6,7 +6,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<IFundOfMandatesService, FundOfMandatesService>();
-builder.Services.AddScoped<IGetFilePath, GetFilePath>();
+builder.Services.AddScoped<IApplicationConfig, ApplicationConfig>();
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAnyCorsPolicy", policy => policy.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());

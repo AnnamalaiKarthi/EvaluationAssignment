@@ -11,7 +11,7 @@ namespace Rabobank.Training.ClassLibrary.MapperExtensions
             {
                 return new MandateVM
                 {
-                    Name = fundsOfMandatesData.FundsOfMandates.FirstOrDefault().Mandates.FirstOrDefault().MandateName,
+                    Name = fundsOfMandatesData.FundsOfMandates?.FirstOrDefault()?.Mandates?.FirstOrDefault()?.MandateName,
                 };
             }
             return null;
@@ -37,7 +37,7 @@ namespace Rabobank.Training.ClassLibrary.MapperExtensions
                                 Name = x.MandateName,
                                 Allocation = x.Allocation,
                                 Value = Math.Round(GetValue(position.InstrumentName) * x.Allocation / 100, 1),
-                            }).ToList()
+                            }).ToList(),
                         });
                     }
                 }

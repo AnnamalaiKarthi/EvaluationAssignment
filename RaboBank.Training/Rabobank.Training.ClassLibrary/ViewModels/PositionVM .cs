@@ -10,6 +10,6 @@
         public string? Code { get; set; }
         public string? Name { get; set; }
         public decimal Value { get; set; }
-        public List<MandateVM> Mandates { get; set; }
+        public List<MandateVM>? Mandates { get; set; }
     }
 }

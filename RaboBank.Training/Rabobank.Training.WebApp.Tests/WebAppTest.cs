@@ -18,14 +18,14 @@ namespace Rabobank.Training.WebApp.Tests
         private readonly Mock<ILogger<PortfolioController>> _logger;
         private readonly string xmlFileDataPath = AppDomain.CurrentDomain.BaseDirectory + "TestData\\FundsOfMandatesData.xml";
         private readonly Mock<IConfiguration> _configurationMock;
-        private readonly Mock<IGetFilePath> _getFilePathMock;
+        private readonly Mock<IApplicationConfig> _getFilePathMock;
 
         public WebAppTest()
         {
             _fundOfMandatesServiceMock = new Mock<IFundOfMandatesService>();
             _logger = new Mock<ILogger<PortfolioController>>();
             _configurationMock = new Mock<IConfiguration>();
-            _getFilePathMock = new Mock<IGetFilePath>();
+            _getFilePathMock = new Mock<IApplicationConfig>();
         }
 
         /// <summary>
@@ -35,7 +35,7 @@ namespace Rabobank.Training.WebApp.Tests
         public async Task Get()
         {
             // Arrange
-            PortfolioController portfolioController = new PortfolioController(_logger.Object, _fundOfMandatesServiceMock.Object, _configurationMock.Object, _getFilePathMock.Object);
+            PortfolioController portfolioController = new PortfolioController(_logger.Object, _fundOfMandatesServiceMock.Object, _getFilePathMock.Object);
             Environment.SetEnvironmentVariable("XmlFileDataPath", xmlFileDataPath);
             // Act
             var result = await portfolioController.Get();

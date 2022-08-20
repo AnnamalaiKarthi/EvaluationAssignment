@@ -12,29 +12,36 @@ namespace Rabobank.Training.WebApp.Controllers
 
         private readonly ILogger<PortfolioController> _logger;
 
-        private readonly IConfiguration _configuration;
-        private readonly IGetFilePath _getFilePath;
+        private readonly IApplicationConfig _applicationConfig;
 
-        public PortfolioController(ILogger<PortfolioController> logger, IFundOfMandatesService fundOfMandatesService, IConfiguration configuaration, IGetFilePath getFilePath)
+        public PortfolioController(ILogger<PortfolioController> logger, IFundOfMandatesService fundOfMandatesService, IApplicationConfig applicationConfig)
         {
             _logger = logger;
             _fundOfMandatesService = fundOfMandatesService;
-            _configuration = configuaration;
-            _getFilePath = getFilePath;
+            _applicationConfig = applicationConfig;
         }
 
         [HttpGet]
         public async Task<IActionResult> Get()
         {
-            string? filePath = _getFilePath.FilePath();
-            if (filePath != null)
+            try
             {
-                var data = await _fundOfMandatesService.GetPortfolioAsync(filePath);
-                return Ok(data);
+                string? filePath = _applicationConfig.GetFilePath();
+                _logger.LogInformation($"Getting Portfolio Data from Path: {filePath}");
+                if (filePath != null)
+                {
+                    var data = await _fundOfMandatesService.GetPortfolioAsync(filePath);
+                    return Ok(data);
+                }
+                else
+                {
+                    throw new Exception("FileName cannot be empty");
+                }
             }
-            else
+            catch (Exception ex)
             {
-                throw new Exception("FileName cannot be empty");
+                _logger.LogError($"Error Occurred: {ex}");
+                throw;
             }
         }
     }
